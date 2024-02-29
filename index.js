@@ -114,32 +114,7 @@ login({appState: JSON.parse(fs.readFileSync('fbstate.json', 'utf8'))}, (err, api
     const gptres = await gpt(userinput)
     api.sendMessage(gptres, message.threadID);
   }
-  if(message && message.body&& message.senderID&& message.body.includes("/accept")){
-    var thread = message.body.replace("/accept", "")
-    if (message.senderID =!"100038873234133" ) return api.sendMessage("Nah t accept send đâu", message.threadID);
-    api.handleMessageRequest(thread, true, (err) => {
-     if(err) return console.error(`err in accept${err}`);
-      api.sendMessage("Đã accept", message.threadID);
-    })
-  }
-  if(message && message.body&& message.senderID&& message.body.includes("/removemefromgroup")){
-    var thread = message.body.replace("/removemefromgroup", "")
-    if(message.threadID == thread) return api.sendMessage("Không thể remove bản thân khỏi nhóm này", message.threadID);
-    if (message.senderID =!"100038873234133" ) return api.sendMessage("Nah t k out đâu", message.threadID);
-    api.removeUserFromGroup(api.getCurrentUserID(), thread, (err) => {
-     if(err) return console.error(`err in removeme from group${err}`);
-      api.sendMessage("Đã remove", message.threadID);
-    })
-  }
-  if(message && message.body&& message.senderID&& message.body.includes("/add")){
-    var id = message.body.replace("/add", "")
-    if (message.senderID =!"100038873234133" ) return api.sendMessage("Nah t k add đâu", message.threadID);
-    console.log(`trying to add id: ${id}`)
-    api.addUserToGroup(id, message.threadID, (err) => {
-     if(err) return console.error(`err in add${err}`);
-      api.sendMessage("Đã add", message.threadID);
-    })
-  }
+ 
   if(message && message.body&& message.body.includes("/bard")){
     var msg = message.body.replace("/bard", "")
     var res = await bard(msg)
