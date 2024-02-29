@@ -187,12 +187,6 @@ login({appState: JSON.parse(fs.readFileSync('fbstate.json', 'utf8'))}, (err, api
         .save("video.mp3");
       })
     }
-      if(message.body == "testmusic"){
-            var msg= { body:"mp3",
-            attachment: fs.createReadStream("video.mp3")}
-        api.sendMessage(msg, message.threadID)
-        console.log(`Đã gửi ${message.senderID}`)
-    }
     
     });
     api.getThreadList(10, null, ["PENDING"], function(err, list) {
